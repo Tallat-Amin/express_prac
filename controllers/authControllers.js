@@ -30,11 +30,11 @@ module.exports.login_POST = async (req, resp) => {
       if (auth) {
         resp
           .status(201)
-          .cookie("userToken", token)
+          .cookie("userToken", token,{httpOnly: true})
           .send("login post via controller success");
       } else console.log("incorrect password");
-    } else console.log("incorrect email");
-    resp.status(201).send("login post via controller success");
+    } else resp.redirect("/login")
+  // else console.log("incorrect email");
   } catch (e) {
     console.log("error: ", e);
     resp.status(404).send("Resource not found");
